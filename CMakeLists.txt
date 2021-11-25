@@ -5,6 +5,7 @@ project (rt2d)
 # delete CMakeCache.txt from the build directory when you edit these options
 ####################################################################
 OPTION(MAKE_START "Make RT2D start application" ON)
+OPTION(MAKE_JUMPY "Make Jumpy game application" ON)
 OPTION(MAKE_DEMO "Make RT2D demo (tests) application" ON)
 OPTION(MAKE_CANVAS_DEMO "Make RT2D Canvas demo (tests) application" ON)
 OPTION(MAKE_FLOCKING "Make flocking application" ON)
@@ -147,6 +148,27 @@ file(
 	COPY ${CMAKE_SOURCE_DIR}/rt2d/fonts
 	DESTINATION ${CMAKE_BINARY_DIR}
 )
+
+####################################################################
+# Jumpy                                                            #
+####################################################################
+IF(MAKE_JUMPY)
+	add_executable(Jumpy
+		Jumpy/main.cpp
+		Jumpy/Player.cpp
+		Jumpy/Player.h
+		Jumpy/MainScene.cpp
+		Jumpy/MainScene.h
+	)
+	target_link_libraries(Jumpy
+		${ALL_GRAPHICS_LIBS}
+	)
+	# Copy assets to the build directory
+	file(
+		COPY Jumpy/assets
+		DESTINATION ${CMAKE_BINARY_DIR}
+	)
+ENDIF()
 
 ####################################################################
 # start                                                            #
