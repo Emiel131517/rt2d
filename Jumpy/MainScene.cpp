@@ -10,3 +10,6 @@ MainScene::~MainScene() {
 	this->removeChild(player);
 	delete player;
 }
+void MainScene::update(float deltaTime) {
+
+}

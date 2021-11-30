@@ -9,6 +9,7 @@ class MainScene : public Scene
 public:
 	MainScene();
 	virtual ~MainScene();
+	virtual void update(float deltaTime);
 
 private:
 	Player* player;

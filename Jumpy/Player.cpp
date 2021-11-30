@@ -9,3 +9,7 @@ Player::~Player()
 {
 
 }
+
+void Player::update(float deltaTime) {
+
+}
