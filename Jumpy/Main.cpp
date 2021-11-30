@@ -1,7 +1,7 @@
 #include <rt2d/core.h>
 #include "MainScene.h"
 
-int Main(void) {
+int main(void) {
 
 	Core core;
 

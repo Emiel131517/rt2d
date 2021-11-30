@@ -2,7 +2,7 @@
 
 Player::Player() : Entity()
 {
-	this->addSprite("Assets/Playermodel");
+	this->addSprite("Assets/Playermodel.tga");
 }
 
 Player::~Player()

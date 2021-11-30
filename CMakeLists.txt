@@ -154,7 +154,7 @@ file(
 ####################################################################
 IF(MAKE_JUMPY)
 	add_executable(Jumpy
-		Jumpy/main.cpp
+		Jumpy/Main.cpp
 		Jumpy/Player.cpp
 		Jumpy/Player.h
 		Jumpy/MainScene.cpp
