@@ -7,6 +7,9 @@ class Player : public Entity {
 public:
 	Player();
 	virtual ~Player();
+	virtual void update(float deltaTime);
+
+private:
 };
 
 #endif // !PLAYER_H

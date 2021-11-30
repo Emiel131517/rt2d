@@ -10,8 +10,6 @@ public:
 	MainScene();
 	virtual ~MainScene();
 
-	virtual void update(float deltatime);
-	
 private:
 	Player* player;
 
