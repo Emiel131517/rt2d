@@ -7,12 +7,12 @@ class Platform : public Entity {
 public:
 	Platform();
 	virtual ~Platform();
-	vitrual void Update(deltaTime);
-
+	virtual void update(float deltaTime);
 
 private:
-	Platform* platform
-}
+	float speed;
+
+};
 
 #endif // !PLATFORM_H
 

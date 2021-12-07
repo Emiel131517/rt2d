@@ -2,21 +2,22 @@
 
 MainScene::MainScene() : Scene() {
 	
+	platform = new Platform();
 	player = new Player();
 	this->addChild(player);
-	player->position.x = 500;
-	player->position.y = 500;
-	player->rotation.x = 180;
-}
-MainScene::~MainScene() {
-	this->removeChild(player);
-	delete player;
+	this->addChild(platform);
+	//for (int i = 0; i < 5; i++) 
+	//{
+	//	Platform* platform = new Platform();
+	//	platform->position.y = rand() % SWIDTH;
+	//	platforms.push_back(platform);
+	//	this->addChild(platform);
+	//}
 }
 void MainScene::update(float deltaTime) 
 {	
 	player->velocity += player->gravity * deltaTime;
 	player->position += player->velocity;
-
 	//quit game
 	if (input()->getKey(KeyCode::Escape)) 
 	{
@@ -32,8 +33,21 @@ void MainScene::update(float deltaTime)
 	{
 		player->position.x -= player->moveSpeed * deltaTime;
 	}
+	//jump
 	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
 		player->velocity += player->acceleration * deltaTime;
 	}
+}
+MainScene::~MainScene() {
+	this->removeChild(player);
+	this->removeChild(platform);
+	delete player;
+	delete platform;
+	//int size = platforms.size();
+	//for (int i = 0; i < size; i++)
+	//{
+	//	this->removeChild(platforms[i]);
+	//	delete platforms[i];
+	//}
 }
