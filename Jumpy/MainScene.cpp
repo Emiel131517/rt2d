@@ -18,6 +18,25 @@ void MainScene::update(float deltaTime)
 {	
 	player->velocity += player->gravity * deltaTime;
 	player->position += player->velocity;
+	//##Borders##
+	if (player->position.x < 35) 
+	{
+		player->position.x = 35;
+	}
+	if (player->position.x > 1245) 
+	{
+		player->position.x = 1245;
+	}
+	if (player->position.y < 40)
+	{
+		player->position.y = 40;
+	}
+	if (player->position.y > 700)
+	{
+		this->stop();
+	}
+
+	//##Inputs##
 	//quit game
 	if (input()->getKey(KeyCode::Escape)) 
 	{
@@ -37,6 +56,10 @@ void MainScene::update(float deltaTime)
 	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
 		player->velocity += player->acceleration * deltaTime;
+	}
+	if (player->velocity.y < 0) 
+	{
+		//stop colliding
 	}
 }
 MainScene::~MainScene() {
