@@ -9,7 +9,7 @@ Player::Player() : Entity()
 	acceleration = Vector2(0, -250);
 	position = Point2(500, 500);
 	rotation.x = 180;
-	this->addSprite("Assets/Playermodel.tga");
+	this->addSprite("Assets/Player.tga");
 }
 
 Player::~Player()
