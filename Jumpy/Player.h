@@ -5,6 +5,8 @@
 
 class Player : public GameEntity {
 public:
+	float height;
+	float width;
 	bool isGrounded;
 	float moveSpeed;
 	Vector2 velocity;
