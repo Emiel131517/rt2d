@@ -1,11 +1,13 @@
 #include "Platform.h"
 
-Platform::Platform() : Entity()
+Platform::Platform() : GameEntity()
 {
-	this->addSprite("Assets/Platform.tga");
+	width = 512;
+	height = 64;
+	speed = 50;
 	scale = Point2(0.5f, 0.5f);
 	position = Point2(400, 500);
-	speed = 50;
+	this->addSprite("Assets/Platform.tga");
 }
 
 Platform::~Platform()

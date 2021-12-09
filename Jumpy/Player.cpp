@@ -1,7 +1,9 @@
 #include "Player.h"
 
-Player::Player() : Entity()
+Player::Player() : GameEntity()
 {
+	width = 160;
+	height = 512;
 	isGrounded = true;
 	moveSpeed = 500;
 	velocity = Vector2(0, 0);

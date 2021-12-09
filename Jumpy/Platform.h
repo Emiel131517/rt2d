@@ -1,9 +1,9 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
-#include <rt2d/entity.h>
+#include "GameEntity.h"
 
-class Platform : public Entity {
+class Platform : public GameEntity {
 public:
 	Platform();
 	virtual ~Platform();

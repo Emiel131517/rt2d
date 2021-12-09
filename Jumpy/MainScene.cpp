@@ -1,7 +1,8 @@
 #include "MainScene.h"
+#include "Collider.h"
 
 MainScene::MainScene() : Scene() {
-	
+
 	platform = new Platform();
 	player = new Player();
 	this->addChild(player);
@@ -35,8 +36,13 @@ void MainScene::update(float deltaTime)
 	{
 		this->stop();
 	}
+	//##collision##//
+	if (Collider::isColliding(player, platform))
+	{
 
-	//##Inputs##
+		std::cout << "Collided!" << std::endl;
+	}
+	//##Inputs##//
 	//quit game
 	if (input()->getKey(KeyCode::Escape)) 
 	{
