@@ -2,8 +2,8 @@
 
 Player::Player() : GameEntity()
 {
-	width = 160;
-	height = 512;
+	width = 128;
+	height = 128;
 	isGrounded = true;
 	moveSpeed = 500;
 	velocity = Vector2(0, 0);

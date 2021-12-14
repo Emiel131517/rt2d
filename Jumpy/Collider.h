@@ -5,12 +5,12 @@
 class Collider
 {
 public:
-	static bool isColliding(GameEntity* entity, GameEntity* obj2)
+	static bool SquareIsColliding(const GameEntity* ent1, const GameEntity* ent2)
 	{
-		if (obj1->position.x < obj2->position.x +	obj2->width &&
-			obj1->position.x + obj1->width >		obj2->position.x &&
-			obj1->position.y < obj2->position.y +	obj2->height &&
-			obj1->position.y + obj1->height >		obj2->position.y)
+		if (ent1->position.x < ent2->position.x + ent2->width &&
+			ent1->position.x + ent1->width		>	ent2->position.x &&
+			ent1->position.y < ent2->position.y + ent2->height &&
+			ent1->position.y + ent1->height		>	ent2->position.y)
 		{
 			return true;
 		}

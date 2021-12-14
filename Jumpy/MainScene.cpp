@@ -17,8 +17,17 @@ MainScene::MainScene() : Scene() {
 }
 void MainScene::update(float deltaTime) 
 {	
+	//std::cout << player->velocity << std::endl;
 	player->velocity += player->gravity * deltaTime;
 	player->position += player->velocity;
+	if (player->velocity.y > 0.4)
+	{
+		player->velocity.y = 0.4;
+	}
+	if (player->velocity.y < -2)
+	{
+		player->velocity.y = -2;
+	}
 	//##Borders##
 	if (player->position.x < 35) 
 	{
@@ -37,10 +46,9 @@ void MainScene::update(float deltaTime)
 		this->stop();
 	}
 	//##collision##//
-	if (Collider::isColliding(player, platform))
+	if (Collider::SquareIsColliding(platform, player) && player->velocity.y > 0)
 	{
-
-		std::cout << "Collided!" << std::endl;
+		player->position.y = platform->position.y;
 	}
 	//##Inputs##//
 	//quit game
@@ -62,10 +70,6 @@ void MainScene::update(float deltaTime)
 	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
 		player->velocity += player->acceleration * deltaTime;
-	}
-	if (player->velocity.y < 0) 
-	{
-		//stop colliding
 	}
 }
 MainScene::~MainScene() {

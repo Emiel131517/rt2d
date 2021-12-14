@@ -2,11 +2,10 @@
 
 Platform::Platform() : GameEntity()
 {
-	width = 512;
-	height = 64;
+	width = 256;
+	height = 32;
 	speed = 50;
-	scale = Point2(0.5f, 0.5f);
-	position = Point2(400, 500);
+	position = Point2(300, 500);
 	this->addSprite("Assets/Platform.tga");
 }
 
@@ -16,5 +15,5 @@ Platform::~Platform()
 }
 void Platform::update(float deltaTime)
 {
-	position.y += speed * deltaTime;
+	//position.y += speed * deltaTime;
 }
