@@ -13,7 +13,7 @@ public:
 
 	Player();
 	virtual ~Player();
-	virtual void update(float deltaTime);
+	virtual void update(float deltaTime);  
 
 private:
 

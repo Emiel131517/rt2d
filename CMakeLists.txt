@@ -162,6 +162,7 @@ IF(MAKE_JUMPY)
 		Jumpy/Platform.cpp
 		Jumpy/Platform.h
 		Jumpy/GameEntity.h
+		Jumpy/Collider.h
 	)
 	target_link_libraries(Jumpy
 		${ALL_GRAPHICS_LIBS}

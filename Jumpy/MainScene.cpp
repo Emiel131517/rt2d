@@ -17,16 +17,15 @@ MainScene::MainScene() : Scene() {
 }
 void MainScene::update(float deltaTime) 
 {	
+	std::cout << player->isGrounded << std::endl;
+	ddClear();
+	ddSquare(player->position.x, player->position.y, player->width, player->height, RED);
+	ddSquare(platform->position.x, platform->position.y, platform->width, platform->height, RED);
 	//std::cout << player->velocity << std::endl;
-	player->velocity += player->gravity * deltaTime;
-	player->position += player->velocity;
-	if (player->velocity.y > 0.4)
+	Physics(deltaTime);
+	if (player->velocity.y > 0.6)
 	{
-		player->velocity.y = 0.4;
-	}
-	if (player->velocity.y < -2)
-	{
-		player->velocity.y = -2;
+		player->velocity.y = 0.6;
 	}
 	//##Borders##
 	if (player->position.x < 35) 
@@ -37,18 +36,13 @@ void MainScene::update(float deltaTime)
 	{
 		player->position.x = 1245;
 	}
-	if (player->position.y < 40)
+	if (player->position.y < 50)
 	{
-		player->position.y = 40;
+		player->position.y = 50;
 	}
 	if (player->position.y > 700)
 	{
 		this->stop();
-	}
-	//##collision##//
-	if (Collider::SquareIsColliding(platform, player) && player->velocity.y > 0)
-	{
-		player->position.y = platform->position.y;
 	}
 	//##Inputs##//
 	//quit game
@@ -56,7 +50,7 @@ void MainScene::update(float deltaTime)
 	{
 		this->stop();
 	}
-	//move right
+	////move right
 	if (input()->getKey(KeyCode::D))
 	{
 		player->position.x += player->moveSpeed * deltaTime;
@@ -69,7 +63,33 @@ void MainScene::update(float deltaTime)
 	//jump
 	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
-		player->velocity += player->acceleration * deltaTime;
+		player->gravity = Vector2(0, 0);
+		player->acceleration = Vector2(0, -250);
+	}
+	//##collision##//
+	if (Collider::SquareIsColliding(platform, player) && player->velocity.y > 0)
+	{
+		player->position.y = platform->position.y - platform->height/2 - player->height/2;
+		player->isGrounded = true;
+	}
+	else 
+	{
+		player->isGrounded = false;
+	}
+}
+void MainScene::Physics(float deltaTime) 
+{
+	player->velocity += player->acceleration * deltaTime;
+	player->velocity += player->gravity * deltaTime;
+	player->position += player->velocity;
+	player->acceleration = Vector2(0, 0);
+	if (player->isGrounded == true)
+	{
+		player->gravity = Vector2(0, 0);
+	}
+	else
+	{
+		player->gravity = Vector2(0, 0.4f);
 	}
 }
 MainScene::~MainScene() {

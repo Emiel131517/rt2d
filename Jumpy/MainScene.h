@@ -4,11 +4,13 @@
 #include <rt2d/scene.h>
 #include "Player.h"
 #include "Platform.h"
+#include "test.h"
 
 class MainScene : public Scene
 {
 public:
 	MainScene();
+	void Physics(float deltaTime);
 	virtual ~MainScene();
 	void update(float deltaTime);
 

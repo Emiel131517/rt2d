@@ -2,15 +2,15 @@
 
 Player::Player() : GameEntity()
 {
-	width = 128;
+	Sprite().pivot = Point2(1, 0);
+	width = 64;
 	height = 128;
 	isGrounded = true;
 	moveSpeed = 500;
 	velocity = Vector2(0, 0);
-	gravity = Vector2(0, 0.25f);
-	acceleration = Vector2(0, -250);
-	position = Point2(500, 500);
-	rotation.x = 180;
+	gravity = Vector2(0, 0);
+	acceleration = Vector2(0, 0);
+	position = Point2(0, -10);
 	this->addSprite("Assets/Player.tga");
 }
 
