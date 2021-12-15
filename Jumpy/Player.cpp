@@ -8,7 +8,7 @@ Player::Player() : GameEntity()
 	isGrounded = true;
 	moveSpeed = 500;
 	velocity = Vector2(0, 0);
-	gravity = Vector2(0, 0);
+	gravity = Vector2(0, 0.4f);
 	acceleration = Vector2(0, 0);
 	position = Point2(0, -10);
 	this->addSprite("Assets/Player.tga");

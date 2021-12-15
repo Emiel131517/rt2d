@@ -19,14 +19,18 @@ void MainScene::update(float deltaTime)
 {	
 	std::cout << player->isGrounded << std::endl;
 	ddClear();
-	ddSquare(player->position.x, player->position.y, player->width, player->height, RED);
-	ddSquare(platform->position.x, platform->position.y, platform->width, platform->height, RED);
+	ddSquare(player->position.x - player->width/2, player->position.y - player->height/2, player->width, player->height, RED);
+	ddSquare(platform->position.x - platform->width/2, platform->position.y - platform->height/2, platform->width, platform->height, RED);
 	//std::cout << player->velocity << std::endl;
-	Physics(deltaTime);
-	if (player->velocity.y > 0.6)
+	player->velocity += player->gravity * deltaTime;
+	player->velocity += player->acceleration * deltaTime;
+	player->position += player->velocity;
+	player->acceleration = Vector2(0, 0);
+	if (player->isGrounded == true)
 	{
-		player->velocity.y = 0.6;
+		player->gravity = Vector2(0, 0);
 	}
+	//Physics(deltaTime);
 	//##Borders##
 	if (player->position.x < 35) 
 	{
@@ -63,7 +67,6 @@ void MainScene::update(float deltaTime)
 	//jump
 	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
-		player->gravity = Vector2(0, 0);
 		player->acceleration = Vector2(0, -250);
 	}
 	//##collision##//
@@ -79,8 +82,8 @@ void MainScene::update(float deltaTime)
 }
 void MainScene::Physics(float deltaTime) 
 {
-	player->velocity += player->acceleration * deltaTime;
 	player->velocity += player->gravity * deltaTime;
+	player->velocity += player->acceleration * deltaTime;
 	player->position += player->velocity;
 	player->acceleration = Vector2(0, 0);
 	if (player->isGrounded == true)
@@ -89,7 +92,7 @@ void MainScene::Physics(float deltaTime)
 	}
 	else
 	{
-		player->gravity = Vector2(0, 0.4f);
+		//player->gravity = Vector2(0, 0.4f);
 	}
 }
 MainScene::~MainScene() {
