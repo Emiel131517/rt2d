@@ -9,8 +9,8 @@ class MainScene : public Scene
 {
 public:
 	MainScene();
-	void Physics(float deltaTime);
 	virtual ~MainScene();
+	void UsePhysics(float deltaTime);
 	void update(float deltaTime);
 
 private:

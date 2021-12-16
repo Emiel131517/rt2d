@@ -7,9 +7,8 @@ class Player : public GameEntity {
 public:
 	bool isGrounded;
 	float moveSpeed;
-	Vector2 velocity;
-	Vector2 acceleration;
-	Vector2 gravity;
+	float velocityY, velocityX;
+	float gravity;
 
 	Player();
 	virtual ~Player();

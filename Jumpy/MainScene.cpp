@@ -18,19 +18,11 @@ MainScene::MainScene() : Scene() {
 void MainScene::update(float deltaTime) 
 {	
 	std::cout << player->isGrounded << std::endl;
+
 	ddClear();
 	ddSquare(player->position.x - player->width/2, player->position.y - player->height/2, player->width, player->height, RED);
 	ddSquare(platform->position.x - platform->width/2, platform->position.y - platform->height/2, platform->width, platform->height, RED);
-	//std::cout << player->velocity << std::endl;
-	player->velocity += player->gravity * deltaTime;
-	player->velocity += player->acceleration * deltaTime;
-	player->position += player->velocity;
-	player->acceleration = Vector2(0, 0);
-	if (player->isGrounded == true)
-	{
-		player->gravity = Vector2(0, 0);
-	}
-	//Physics(deltaTime);
+	UsePhysics(deltaTime);
 	//##Borders##
 	if (player->position.x < 35) 
 	{
@@ -67,12 +59,12 @@ void MainScene::update(float deltaTime)
 	//jump
 	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
-		player->acceleration = Vector2(0, -250);
+		player->velocityY = -250;
 	}
 	//##collision##//
-	if (Collider::SquareIsColliding(platform, player) && player->velocity.y > 0)
+	if (Collider::SquareIsColliding(platform, player))
 	{
-		player->position.y = platform->position.y - platform->height/2 - player->height/2;
+		player->position.y = platform->position.y - platform->height / 2 - player->height / 2;
 		player->isGrounded = true;
 	}
 	else 
@@ -80,20 +72,11 @@ void MainScene::update(float deltaTime)
 		player->isGrounded = false;
 	}
 }
-void MainScene::Physics(float deltaTime) 
+void MainScene::UsePhysics(float deltaTime)
 {
-	player->velocity += player->gravity * deltaTime;
-	player->velocity += player->acceleration * deltaTime;
-	player->position += player->velocity;
-	player->acceleration = Vector2(0, 0);
-	if (player->isGrounded == true)
-	{
-		player->gravity = Vector2(0, 0);
-	}
-	else
-	{
-		//player->gravity = Vector2(0, 0.4f);
-	}
+	player->position.x += player->velocityX * deltaTime;
+	player->position.y += player->velocityY * deltaTime;
+	player->velocityY += player->gravity;
 }
 MainScene::~MainScene() {
 	this->removeChild(player);
