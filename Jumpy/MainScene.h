@@ -4,19 +4,27 @@
 #include <rt2d/scene.h>
 #include "Player.h"
 #include "Platform.h"
+#include "timer.h"
 
 class MainScene : public Scene
 {
 public:
+	int random;
+
 	MainScene();
 	virtual ~MainScene();
 	void UsePhysics(float deltaTime);
+	void SpawnPlatform(int Xposition);
 	void update(float deltaTime);
+	void UseMovement(float deltaTime);
+	void UseScreenBorders();
+	void UseColliders();
 
 private:
 	Player* player;
-	//std::vector<Platform*> platforms;
-	Platform* platform;
+	Platform* startPlatform;
+	std::vector<Platform*> platforms;
+	Timer timer;
 };
 
 #endif //MAINSCENE_H

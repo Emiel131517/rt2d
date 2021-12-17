@@ -7,12 +7,11 @@ Player::Player() : GameEntity()
 	moveSpeed = 500;
 
 	isGrounded = false;
+	isJumping = false;
 
-	gravity = 0.75f;
-	velocityX = 0;
+	gravity = 0.4f;
 	velocityY = 0;
-
-	position = Point2(0, -10);
+	velocityX = 0;
 
 	this->addSprite("Assets/Player.tga");
 }

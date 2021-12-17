@@ -6,6 +6,8 @@
 class Player : public GameEntity {
 public:
 	bool isGrounded;
+	bool isJumping;
+
 	float moveSpeed;
 	float velocityY, velocityX;
 	float gravity;

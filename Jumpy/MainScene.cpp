@@ -3,49 +3,78 @@
 
 MainScene::MainScene() : Scene() {
 
-	platform = new Platform();
 	player = new Player();
+	startPlatform = new Platform();
+	this->addChild(startPlatform);
 	this->addChild(player);
-	this->addChild(platform);
-	//for (int i = 0; i < 5; i++) 
-	//{
-	//	Platform* platform = new Platform();
-	//	platform->position.y = rand() % SWIDTH;
-	//	platforms.push_back(platform);
-	//	this->addChild(platform);
-	//}
+	timer.start();
+
+	srand(time(NULL));
+
+	player->position = Point2(SWIDTH / 2, 0);
+	startPlatform->position = Point2(SWIDTH / 2, 0);
 }
 void MainScene::update(float deltaTime) 
 {	
-	std::cout << player->isGrounded << std::endl;
-
-	ddClear();
-	ddSquare(player->position.x - player->width/2, player->position.y - player->height/2, player->width, player->height, RED);
-	ddSquare(platform->position.x - platform->width/2, platform->position.y - platform->height/2, platform->width, platform->height, RED);
+	random = rand() % SWIDTH;
+	if (timer.seconds() >= 2)
+	{
+		SpawnPlatform(random);
+		timer.start();
+	}
+	//##Physics##//
 	UsePhysics(deltaTime);
 	//##Borders##
-	if (player->position.x < 35) 
-	{
-		player->position.x = 35;
-	}
-	if (player->position.x > 1245) 
-	{
-		player->position.x = 1245;
-	}
-	if (player->position.y < 50)
-	{
-		player->position.y = 50;
-	}
-	if (player->position.y > 700)
-	{
-		this->stop();
-	}
-	//##Inputs##//
+	UseScreenBorders();
+	//##Movement##//
+	UseMovement(deltaTime);
+	//##Colliding##//
+	UseColliders();
 	//quit game
-	if (input()->getKey(KeyCode::Escape)) 
+	if (input()->getKey(KeyCode::Escape))
 	{
 		this->stop();
 	}
+}
+void MainScene::SpawnPlatform(int Xposition)
+{
+	Platform* platform = new Platform();
+	platform->position = Point2(Xposition, 0);
+	platforms.push_back(platform);
+	this->addChild(platform);
+}
+void MainScene::UsePhysics(float deltaTime)
+{
+	player->position.x += player->velocityX * deltaTime;
+	player->position.y += player->velocityY * deltaTime;
+	player->velocityY += player->gravity;
+	if (player->velocityY > 0)
+	{
+		player->isJumping = true;
+	}
+	else
+	{
+		player->isJumping = false;
+	}
+	if (player->isGrounded)
+	{
+		player->gravity = 0;
+	}
+	else
+	{
+		player->gravity = 0.4f;
+	}
+	if (player->isJumping == true)
+	{
+		player->gravity = 0.75f;
+	}
+	if (player->isJumping == false && player->isGrounded == false)
+	{
+		player->gravity = 0.4f;
+	}
+}
+void MainScene::UseMovement(float deltaTime)
+{
 	////move right
 	if (input()->getKey(KeyCode::D))
 	{
@@ -59,34 +88,62 @@ void MainScene::update(float deltaTime)
 	//jump
 	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
-		player->velocityY = -250;
+		player->velocityY = -400;
 	}
-	//##collision##//
-	if (Collider::SquareIsColliding(platform, player))
+}
+void MainScene::UseColliders()
+{
+	if (Collider::SquareIsColliding(startPlatform, player) && player->velocityY > 0)
 	{
-		player->position.y = platform->position.y - platform->height / 2 - player->height / 2;
+		player->position.y = startPlatform->position.y - startPlatform->height / 2 - player->height / 2;
 		player->isGrounded = true;
 	}
-	else 
+	else
 	{
 		player->isGrounded = false;
 	}
-}
-void MainScene::UsePhysics(float deltaTime)
-{
-	player->position.x += player->velocityX * deltaTime;
-	player->position.y += player->velocityY * deltaTime;
-	player->velocityY += player->gravity;
-}
-MainScene::~MainScene() {
-	this->removeChild(player);
-	this->removeChild(platform);
-	delete player;
-	delete platform;
 	//int size = platforms.size();
 	//for (int i = 0; i < size; i++)
 	//{
-	//	this->removeChild(platforms[i]);
-	//	delete platforms[i];
+	//	if (Collider::SquareIsColliding(platforms[i], player) && player->velocityY > 0)
+	//	{
+	//		player->position.y = platforms[i]->position.y - platforms[i]->height / 2 - player->height / 2;
+	//		player->isGrounded = true;
+	//	}
+	//	else
+	//	{
+	//		player->isGrounded = false;
+	//	}
 	//}
+}
+void MainScene::UseScreenBorders()
+{
+	if (player->position.x < 35)
+	{
+		player->position.x = 35;
+	}
+	if (player->position.x > 1245)
+	{
+		player->position.x = 1245;
+	}
+	if (player->position.y < 50)
+	{
+		player->position.y = 50;
+	}
+	if (player->position.y > 700)
+	{
+		this->stop();
+	}
+}
+MainScene::~MainScene() {
+	this->removeChild(player);
+	this->removeChild(startPlatform);
+	delete startPlatform;
+	delete player;
+	int size = platforms.size();
+	for (int i = 0; i < size; i++)
+	{
+		this->removeChild(platforms[i]);
+		delete platforms[i];
+	}
 }
