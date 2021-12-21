@@ -16,10 +16,11 @@ MainScene::MainScene() : Scene() {
 }
 void MainScene::update(float deltaTime) 
 {	
+	std::cout << player->isGrounded << std::endl;
 	random = rand() % SWIDTH;
 	if (timer.seconds() >= 2)
 	{
-		SpawnPlatform(random);
+		SpawnPlatform(random, 0);
 		timer.start();
 	}
 	//##Physics##//
@@ -36,10 +37,10 @@ void MainScene::update(float deltaTime)
 		this->stop();
 	}
 }
-void MainScene::SpawnPlatform(int Xposition)
+void MainScene::SpawnPlatform(int Xposition, int Yposition)
 {
 	Platform* platform = new Platform();
-	platform->position = Point2(Xposition, 0);
+	platform->position = Point2(Xposition, Yposition);
 	platforms.push_back(platform);
 	this->addChild(platform);
 }
@@ -88,33 +89,26 @@ void MainScene::UseMovement(float deltaTime)
 	//jump
 	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
-		player->velocityY = -400;
+		player->velocityY = -300;
 	}
 }
 void MainScene::UseColliders()
 {
+	player->isGrounded = false;
+	int size = platforms.size();
+	for (int i = 0; i < size; i++)
+	{
+		if (Collider::SquareIsColliding(platforms[i], player) && player->velocityY > 0)
+		{
+			player->position.y = platforms[i]->position.y - platforms[i]->height / 2 - player->height / 2;
+			player->isGrounded = true;
+		}
+	}
 	if (Collider::SquareIsColliding(startPlatform, player) && player->velocityY > 0)
 	{
 		player->position.y = startPlatform->position.y - startPlatform->height / 2 - player->height / 2;
 		player->isGrounded = true;
 	}
-	else
-	{
-		player->isGrounded = false;
-	}
-	//int size = platforms.size();
-	//for (int i = 0; i < size; i++)
-	//{
-	//	if (Collider::SquareIsColliding(platforms[i], player) && player->velocityY > 0)
-	//	{
-	//		player->position.y = platforms[i]->position.y - platforms[i]->height / 2 - player->height / 2;
-	//		player->isGrounded = true;
-	//	}
-	//	else
-	//	{
-	//		player->isGrounded = false;
-	//	}
-	//}
 }
 void MainScene::UseScreenBorders()
 {

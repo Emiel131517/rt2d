@@ -14,7 +14,7 @@ public:
 	MainScene();
 	virtual ~MainScene();
 	void UsePhysics(float deltaTime);
-	void SpawnPlatform(int Xposition);
+	void SpawnPlatform(int Xposition, int Yposition);
 	void update(float deltaTime);
 	void UseMovement(float deltaTime);
 	void UseScreenBorders();
