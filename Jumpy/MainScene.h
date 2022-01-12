@@ -18,6 +18,7 @@ public:
 	void SpawnPlatform(int Xposition, int Yposition);
 	void update(float deltaTime);
 	void UseMovement(float deltaTime);
+	void UseRandomPlatformSpawn();
 	void UseColliders();
 	void UseScreenBorders();
 	void UseText();

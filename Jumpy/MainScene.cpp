@@ -14,23 +14,21 @@ MainScene::MainScene() : Scene() {
 	SpawnPlatform(SWIDTH / 2, SHEIGHT / 2);
 	SpawnPlatform(SWIDTH / 3, SHEIGHT / 4);
 	SpawnPlatform(SWIDTH / 2, SHEIGHT / 16);
+	SpawnPlatform(SWIDTH - 128, SHEIGHT / 2);
 	player->position = Point2(SWIDTH / 2, SHEIGHT / 2);
 }
 void MainScene::update(float deltaTime) 
 {	
 	std::cout << player->score << std::endl;
-	random = rand() % SWIDTH;
-	if (timer.seconds() >= 2)
-	{
-		SpawnPlatform(random, 0);
-		timer.start();
-	}
+
 	//##Physics##//
 	UsePhysics(deltaTime);
 	//##Borders##
 	UseScreenBorders();
 	//##Movement##//
 	UseMovement(deltaTime);
+	//##SpawnPlatforms##//
+	UseRandomPlatformSpawn();
 	//##Colliding##//
 	UseColliders();
 	//##Text##//
@@ -72,7 +70,18 @@ void MainScene::UseMovement(float deltaTime)
 	//jump
 	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
-		player->velocityY = -450;
+		player->velocityY = -500;
+	}
+}
+void MainScene::UseRandomPlatformSpawn()
+{
+	int max = SWIDTH - 128;
+	int min = 0 + 128;
+	random = rand() % (max - min) + min;
+	if (timer.seconds() >= 2)
+	{
+		SpawnPlatform(random, 0);
+		timer.start();
 	}
 }
 void MainScene::UseColliders()

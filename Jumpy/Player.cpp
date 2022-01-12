@@ -4,12 +4,12 @@ Player::Player() : GameEntity()
 {
 	width = 64;
 	height = 128;
-	moveSpeed = 500;
+	moveSpeed = 600;
 
 	isGrounded = false;
 	isJumping = false;
 
-	gravity = 1.5f;
+	gravity = 2.1f;
 	velocityY = 0;
 	velocityX = 0;
 
