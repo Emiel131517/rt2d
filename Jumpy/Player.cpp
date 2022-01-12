@@ -9,7 +9,7 @@ Player::Player() : GameEntity()
 	isGrounded = false;
 	isJumping = false;
 
-	gravity = 1.21f;
+	gravity = 1.5f;
 	velocityY = 0;
 	velocityX = 0;
 

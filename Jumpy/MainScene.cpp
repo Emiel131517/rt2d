@@ -4,7 +4,9 @@
 MainScene::MainScene() : Scene() {
 
 	player = new Player();
+	scoreText = new Text();
 	this->addChild(player);
+	this->addChild(scoreText);
 	timer.start();
 
 	srand(time(NULL));
@@ -31,6 +33,8 @@ void MainScene::update(float deltaTime)
 	UseMovement(deltaTime);
 	//##Colliding##//
 	UseColliders();
+	//##Text##//
+	UseText();
 	//quit game
 	if (input()->getKey(KeyCode::Escape))
 	{
@@ -68,7 +72,7 @@ void MainScene::UseMovement(float deltaTime)
 	//jump
 	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
-		player->velocityY = -350;
+		player->velocityY = -450;
 	}
 }
 void MainScene::UseColliders()
@@ -104,9 +108,18 @@ void MainScene::UseScreenBorders()
 		this->stop();
 	}
 }
+void MainScene::UseText()
+{
+	std::string scoreT = "Score: ";
+	scoreT += std::to_string(player->score);
+	scoreText->message(scoreT);
+	scoreText->position = Point2(25, 25);
+}
 MainScene::~MainScene() {
 	this->removeChild(player);
+	this->removeChild(scoreText);
 	delete player;
+	delete scoreText;
 	int size = platforms.size();
 	for (int i = 0; i < size; i++)
 	{
