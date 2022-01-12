@@ -9,9 +9,11 @@ Player::Player() : GameEntity()
 	isGrounded = false;
 	isJumping = false;
 
-	gravity = 0.4f;
+	gravity = 1.21f;
 	velocityY = 0;
 	velocityX = 0;
+
+	score = 0;
 
 	this->addSprite("Assets/Player.tga");
 }

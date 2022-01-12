@@ -5,6 +5,8 @@
 
 class Platform : public GameEntity {
 public:
+	bool giveScore;
+
 	Platform();
 	virtual ~Platform();
 	virtual void update(float deltaTime);

@@ -2,9 +2,11 @@
 
 Platform::Platform() : GameEntity()
 {
+	giveScore = false;
+
 	width = 256;
 	height = 32;
-	speed = 50;
+	speed = 75;
 	this->addSprite("Assets/Platform.tga");
 }
 

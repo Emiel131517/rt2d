@@ -4,19 +4,19 @@
 MainScene::MainScene() : Scene() {
 
 	player = new Player();
-	startPlatform = new Platform();
-	this->addChild(startPlatform);
 	this->addChild(player);
 	timer.start();
 
 	srand(time(NULL));
 
-	player->position = Point2(SWIDTH / 2, 0);
-	startPlatform->position = Point2(SWIDTH / 2, 0);
+	SpawnPlatform(SWIDTH / 2, SHEIGHT / 2);
+	SpawnPlatform(SWIDTH / 3, SHEIGHT / 4);
+	SpawnPlatform(SWIDTH / 2, SHEIGHT / 16);
+	player->position = Point2(SWIDTH / 2, SHEIGHT / 2);
 }
 void MainScene::update(float deltaTime) 
 {	
-	std::cout << player->isGrounded << std::endl;
+	std::cout << player->score << std::endl;
 	random = rand() % SWIDTH;
 	if (timer.seconds() >= 2)
 	{
@@ -48,30 +48,9 @@ void MainScene::UsePhysics(float deltaTime)
 {
 	player->position.x += player->velocityX * deltaTime;
 	player->position.y += player->velocityY * deltaTime;
-	player->velocityY += player->gravity;
-	if (player->velocityY > 0)
+	if (player->isGrounded == false)
 	{
-		player->isJumping = true;
-	}
-	else
-	{
-		player->isJumping = false;
-	}
-	if (player->isGrounded)
-	{
-		player->gravity = 0;
-	}
-	else
-	{
-		player->gravity = 0.4f;
-	}
-	if (player->isJumping == true)
-	{
-		player->gravity = 0.75f;
-	}
-	if (player->isJumping == false && player->isGrounded == false)
-	{
-		player->gravity = 0.4f;
+		player->velocityY += player->gravity;
 	}
 }
 void MainScene::UseMovement(float deltaTime)
@@ -89,7 +68,7 @@ void MainScene::UseMovement(float deltaTime)
 	//jump
 	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
-		player->velocityY = -300;
+		player->velocityY = -350;
 	}
 }
 void MainScene::UseColliders()
@@ -98,41 +77,35 @@ void MainScene::UseColliders()
 	int size = platforms.size();
 	for (int i = 0; i < size; i++)
 	{
-		if (Collider::SquareIsColliding(platforms[i], player) && player->velocityY > 0)
+		if (Collider::SquareIsColliding(platforms[i], player) && player->velocityY > 0 && player->position.y < platforms[i]->position.y - 0.5f)
 		{
 			player->position.y = platforms[i]->position.y - platforms[i]->height / 2 - player->height / 2;
 			player->isGrounded = true;
+			if (platforms[i]->giveScore == false)
+			{
+				player->score++;
+				platforms[i]->giveScore = true;
+			}
 		}
-	}
-	if (Collider::SquareIsColliding(startPlatform, player) && player->velocityY > 0)
-	{
-		player->position.y = startPlatform->position.y - startPlatform->height / 2 - player->height / 2;
-		player->isGrounded = true;
 	}
 }
 void MainScene::UseScreenBorders()
 {
-	if (player->position.x < 35)
+	if (player->position.x < 0 + player->width / 2)
 	{
-		player->position.x = 35;
+		player->position.x = 0 + player->width / 2;
 	}
-	if (player->position.x > 1245)
+	if (player->position.x > SWIDTH - player->width / 2)
 	{
-		player->position.x = 1245;
+		player->position.x = SWIDTH - player->width / 2;
 	}
-	if (player->position.y < 50)
-	{
-		player->position.y = 50;
-	}
-	if (player->position.y > 700)
+	if (player->position.y > SHEIGHT + player->height / 2)
 	{
 		this->stop();
 	}
 }
 MainScene::~MainScene() {
 	this->removeChild(player);
-	this->removeChild(startPlatform);
-	delete startPlatform;
 	delete player;
 	int size = platforms.size();
 	for (int i = 0; i < size; i++)

@@ -12,6 +12,8 @@ public:
 	float velocityY, velocityX;
 	float gravity;
 
+	int score;
+
 	Player();
 	virtual ~Player();
 	virtual void update(float deltaTime);  
