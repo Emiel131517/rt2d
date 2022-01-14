@@ -48,7 +48,6 @@ void MainScene::SpawnPlatform(int Xposition, int Yposition)
 }
 void MainScene::UsePhysics(float deltaTime)
 {
-	player->position.x += player->velocityX * deltaTime;
 	player->position.y += player->velocityY * deltaTime;
 	if (player->isGrounded == false)
 	{

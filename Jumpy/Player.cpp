@@ -11,7 +11,6 @@ Player::Player() : GameEntity()
 
 	gravity = 2.1f;
 	velocityY = 0;
-	velocityX = 0;
 
 	score = 0;
 

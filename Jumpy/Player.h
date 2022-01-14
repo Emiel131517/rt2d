@@ -9,7 +9,7 @@ public:
 	bool isJumping;
 
 	float moveSpeed;
-	float velocityY, velocityX;
+	float velocityY;
 	float gravity;
 
 	int score;
