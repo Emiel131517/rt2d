@@ -6,6 +6,7 @@
 #include "Platform.h"
 #include "timer.h"
 #include "text.h"
+#include "Background.h"
 
 class MainScene : public Scene
 {
@@ -14,9 +15,9 @@ public:
 
 	MainScene();
 	virtual ~MainScene();
-	void UsePhysics(float deltaTime);
-	void SpawnPlatform(int Xposition, int Yposition);
 	void update(float deltaTime);
+	void SpawnPlatform(int Xposition, int Yposition);
+	void UsePhysics(float deltaTime);
 	void UseMovement(float deltaTime);
 	void UseRandomPlatformSpawn();
 	void UseColliders();
@@ -25,10 +26,10 @@ public:
 
 private:
 	Player* player;
-	Platform* startPlatform;
+	Text* scoreText;
+	Background* background;
 	std::vector<Platform*> platforms;
 	Timer timer;
-	Text* scoreText;
 };
 
 #endif //MAINSCENE_H

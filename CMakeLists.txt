@@ -161,6 +161,8 @@ IF(MAKE_JUMPY)
 		Jumpy/MainScene.h
 		Jumpy/Platform.cpp
 		Jumpy/Platform.h
+		Jumpy/Background.cpp
+		Jumpy/Background.h
 		Jumpy/GameEntity.h
 		Jumpy/Collider.h
 	)
