@@ -9,20 +9,45 @@ Player::Player() : GameEntity()
 	isGrounded = false;
 	isJumping = false;
 
-	gravity = 2.1f;
+	gravity = 1.9f;
 	velocityY = 0;
 
 	score = 0;
 
 	this->addSprite("Assets/Player.tga");
 }
-
-Player::~Player()
+void Player::update(float deltaTime)
 {
-
+	UseMovement(deltaTime);
+	UsePhysics(deltaTime);
 }
-
-void Player::update(float deltaTime) 
+void Player::UseMovement(float deltaTime)
+{
+	////move right
+	if (input()->getKey(KeyCode::D))
+	{
+		position.x += moveSpeed * deltaTime;
+	}
+	//move left
+	if (input()->getKey(KeyCode::A))
+	{
+		position.x -= moveSpeed * deltaTime;
+	}
+	//jump
+	if (isGrounded && input()->getKeyDown(KeyCode::Space))
+	{
+		velocityY = -600;
+	}
+}
+void Player::UsePhysics(float deltaTime)
+{
+	position.y += velocityY * deltaTime;
+	if (isGrounded == false)
+	{
+		velocityY += gravity;
+	}
+}
+Player::~Player()
 {
 
 }

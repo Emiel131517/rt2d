@@ -11,6 +11,7 @@ public:
 	virtual void update(float deltaTime);
 
 private:
+	float speed;
 };
 
 #endif // !BACKGROUND_H

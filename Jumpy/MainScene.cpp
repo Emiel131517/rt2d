@@ -3,10 +3,11 @@
 
 MainScene::MainScene() : Scene() {
 
-	background = new Background();
+	CreateBackground(0, 0);
+	CreateBackground(0, -SHEIGHT);
+
 	player = new Player();
 	scoreText = new Text();
-	this->addChild(background);
 	this->addChild(player);
 	this->addChild(scoreText);
 	timer.start();
@@ -21,10 +22,6 @@ MainScene::MainScene() : Scene() {
 }
 void MainScene::update(float deltaTime) 
 {	
-	//##Physics##//
-	UsePhysics(deltaTime);
-	//##Borders##
-	UseMovement(deltaTime);
 	//##SpawnPlatforms##//
 	UseRandomPlatformSpawn();
 	//##Colliding##//
@@ -39,6 +36,15 @@ void MainScene::update(float deltaTime)
 		this->stop();
 	}
 }
+//creates a background
+void MainScene::CreateBackground(int Xposition, int Yposition)
+{
+	Background* background = new Background();
+	background->position = Point2(Xposition, Yposition);
+	backgrounds.push_back(background);
+	this->addChild(background);
+}
+//spawns a platform
 void MainScene::SpawnPlatform(int Xposition, int Yposition)
 {
 	Platform* platform = new Platform();
@@ -46,32 +52,7 @@ void MainScene::SpawnPlatform(int Xposition, int Yposition)
 	platforms.push_back(platform);
 	this->addChild(platform);
 }
-void MainScene::UsePhysics(float deltaTime)
-{
-	player->position.y += player->velocityY * deltaTime;
-	if (player->isGrounded == false)
-	{
-		player->velocityY += player->gravity;
-	}
-}
-void MainScene::UseMovement(float deltaTime)
-{
-	////move right
-	if (input()->getKey(KeyCode::D))
-	{
-		player->position.x += player->moveSpeed * deltaTime;
-	}
-	//move left
-	if (input()->getKey(KeyCode::A))
-	{
-		player->position.x -= player->moveSpeed * deltaTime;
-	}
-	//jump
-	if (player->isGrounded && input()->getKeyDown(KeyCode::Space))
-	{
-		player->velocityY = -550;
-	}
-}
+//spawns a platform at a random location between the screen borders
 void MainScene::UseRandomPlatformSpawn()
 {
 	int max = SWIDTH - 128;
@@ -83,6 +64,7 @@ void MainScene::UseRandomPlatformSpawn()
 		timer.start();
 	}
 }
+//checks collision
 void MainScene::UseColliders()
 {
 	player->isGrounded = false;
@@ -101,6 +83,7 @@ void MainScene::UseColliders()
 		}
 	}
 }
+//make the borders of the screen impassable
 void MainScene::UseScreenBorders()
 {
 	if (player->position.x < 0 + player->width / 2)
@@ -116,6 +99,7 @@ void MainScene::UseScreenBorders()
 		this->stop();
 	}
 }
+//shows text
 void MainScene::UseText()
 {
 	std::string scoreT = "Score: ";
@@ -123,17 +107,22 @@ void MainScene::UseText()
 	scoreText->message(scoreT);
 	scoreText->position = Point2(25, 25);
 }
+//destructor
 MainScene::~MainScene() {
-	this->removeChild(background);
 	this->removeChild(player);
 	this->removeChild(scoreText);
-	delete background;
 	delete player;
 	delete scoreText;
-	int size = platforms.size();
-	for (int i = 0; i < size; i++)
+	int sizePlatforms = platforms.size();
+	for (int i = 0; i < sizePlatforms; i++)
 	{
 		this->removeChild(platforms[i]);
 		delete platforms[i];
+	}
+	int sizeBackgrounds = backgrounds.size();
+	for (int i = 0; i < sizeBackgrounds; i++)
+	{
+		this->removeChild(backgrounds[i]);
+		delete backgrounds[i];
 	}
 }

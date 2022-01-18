@@ -16,9 +16,8 @@ public:
 	MainScene();
 	virtual ~MainScene();
 	void update(float deltaTime);
+	void CreateBackground(int Xposition, int Yposition);
 	void SpawnPlatform(int Xposition, int Yposition);
-	void UsePhysics(float deltaTime);
-	void UseMovement(float deltaTime);
 	void UseRandomPlatformSpawn();
 	void UseColliders();
 	void UseScreenBorders();
@@ -29,6 +28,7 @@ private:
 	Text* scoreText;
 	Background* background;
 	std::vector<Platform*> platforms;
+	std::vector<Background*> backgrounds;
 	Timer timer;
 };
 

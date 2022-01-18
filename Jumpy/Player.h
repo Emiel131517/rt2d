@@ -16,7 +16,9 @@ public:
 
 	Player();
 	virtual ~Player();
-	virtual void update(float deltaTime);  
+	virtual void update(float deltaTime); 
+	void UseMovement(float deltaTime);
+	void UsePhysics(float deltaTime);
 
 private:
 
