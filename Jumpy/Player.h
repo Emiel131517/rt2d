@@ -8,9 +8,9 @@ public:
 	bool isGrounded;
 	bool isJumping;
 
-	float moveSpeed;
+	int moveSpeed;
 	float velocityY;
-	float gravity;
+	int gravity;
 
 	int score;
 

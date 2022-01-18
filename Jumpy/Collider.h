@@ -19,10 +19,6 @@ public:
 			return false;
 		}
 	}
-	//(ent1->position.x - ent1->width / 2 < ent2->position.x - ent2->width / 2 + ent2->width &&
-	//	ent1->position.x - ent1->width / 2 + ent1->width > ent2->position.x - ent2->width / 2 &&
-	//	ent1->position.y - ent1->height / 2 < ent2->position.y - ent2->height / 2 + ent2->height &&
-	//	ent1->position.y - ent1->height / 2 + ent1->height > ent2->position.y - ent2->height / 2)
 
 private:
 

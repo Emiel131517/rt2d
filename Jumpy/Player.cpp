@@ -9,7 +9,7 @@ Player::Player() : GameEntity()
 	isGrounded = false;
 	isJumping = false;
 
-	gravity = 1.9f;
+	gravity = 1500;
 	velocityY = 0;
 
 	score = 0;
@@ -18,6 +18,7 @@ Player::Player() : GameEntity()
 }
 void Player::update(float deltaTime)
 {
+	std::cout << velocityY << std::endl;
 	UseMovement(deltaTime);
 	UsePhysics(deltaTime);
 }
@@ -36,7 +37,7 @@ void Player::UseMovement(float deltaTime)
 	//jump
 	if (isGrounded && input()->getKeyDown(KeyCode::Space))
 	{
-		velocityY = -600;
+		velocityY = -750;
 	}
 }
 void Player::UsePhysics(float deltaTime)
@@ -44,7 +45,7 @@ void Player::UsePhysics(float deltaTime)
 	position.y += velocityY * deltaTime;
 	if (isGrounded == false)
 	{
-		velocityY += gravity;
+		velocityY += gravity * deltaTime;
 	}
 }
 Player::~Player()
