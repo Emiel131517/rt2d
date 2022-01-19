@@ -8,6 +8,11 @@ public:
 	bool isGrounded;
 	bool isJumping;
 
+	int minJumpForce;
+	int maxJumpForce;
+	int jumpForce;
+	int jumpCharge;
+
 	int moveSpeed;
 	float velocityY;
 	int gravity;

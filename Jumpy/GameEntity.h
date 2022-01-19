@@ -5,8 +5,8 @@
 
 class GameEntity : public Entity {
 public:
-	float width;
-	float height;
+	float width = 0;
+	float height = 0;
 private:
 };
 

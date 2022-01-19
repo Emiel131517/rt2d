@@ -26,6 +26,7 @@ public:
 private:
 	Player* player;
 	Text* scoreText;
+	Text* jumpText;
 	Background* background;
 	std::vector<Platform*> platforms;
 	std::vector<Background*> backgrounds;

@@ -6,6 +6,10 @@ Player::Player() : GameEntity()
 	height = 128;
 	moveSpeed = 600;
 
+	minJumpForce = -600;
+	maxJumpForce = -1000;
+	jumpForce = minJumpForce;
+
 	isGrounded = false;
 	isJumping = false;
 
@@ -18,13 +22,14 @@ Player::Player() : GameEntity()
 }
 void Player::update(float deltaTime)
 {
-	std::cout << velocityY << std::endl;
+	jumpCharge = ((jumpForce - minJumpForce) / (maxJumpForce - minJumpForce)) * 100;
+	std::cout << jumpCharge << std::endl;
 	UseMovement(deltaTime);
 	UsePhysics(deltaTime);
 }
 void Player::UseMovement(float deltaTime)
 {
-	////move right
+	//move right
 	if (input()->getKey(KeyCode::D))
 	{
 		position.x += moveSpeed * deltaTime;
@@ -34,10 +39,25 @@ void Player::UseMovement(float deltaTime)
 	{
 		position.x -= moveSpeed * deltaTime;
 	}
-	//jump
-	if (isGrounded && input()->getKeyDown(KeyCode::Space))
+	if (isGrounded && input()->getKey(KeyCode::Space))
 	{
-		velocityY = -750;
+		jumpForce -= 650 * deltaTime;
+		if (jumpForce < maxJumpForce)
+		{
+			jumpForce = maxJumpForce;
+		}
+	}
+	if (isGrounded)
+	{
+		if (input()->getKeyUp(KeyCode::Space))
+		{
+			velocityY = jumpForce;
+			jumpForce = minJumpForce;
+		}
+	}
+	else
+	{
+		jumpForce = minJumpForce;
 	}
 }
 void Player::UsePhysics(float deltaTime)

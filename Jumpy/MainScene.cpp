@@ -8,8 +8,10 @@ MainScene::MainScene() : Scene() {
 
 	player = new Player();
 	scoreText = new Text();
+	jumpText = new Text();
 	this->addChild(player);
 	this->addChild(scoreText);
+	this->addChild(jumpText);
 	timer.start();
 
 	srand(time(NULL));
@@ -102,6 +104,14 @@ void MainScene::UseScreenBorders()
 //shows text
 void MainScene::UseText()
 {
+	//jump text
+	std::string jumpT = "Jumpcharge:";
+	jumpT += std::to_string(player->jumpCharge);
+	jumpT += std::string("%");
+	jumpText->message(jumpT);
+	jumpText->scale = Point2(0.45f, 0.45f);
+	jumpText->position = Point2(20, 75);
+	//score text
 	std::string scoreT = "Score: ";
 	scoreT += std::to_string(player->score);
 	scoreText->message(scoreT);
