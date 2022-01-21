@@ -7,14 +7,17 @@
 #include "timer.h"
 #include "text.h"
 #include "Background.h"
+#include "GameData.h"
 
 class MainScene : public Scene
 {
 public:
-	int random;
 
 	MainScene();
 	virtual ~MainScene();
+
+private:
+
 	void update(float deltaTime);
 	void CreateBackground(int Xposition, int Yposition);
 	void SpawnPlatform(int Xposition, int Yposition);
@@ -22,15 +25,17 @@ public:
 	void UseColliders();
 	void UseScreenBorders();
 	void UseText();
+	void SaveAndQuit();
 
-private:
 	Player* player;
 	Text* scoreText;
 	Text* jumpText;
-	Background* background;
+	Text* highScoreText;
 	std::vector<Platform*> platforms;
 	std::vector<Background*> backgrounds;
 	Timer timer;
+
+	int random;
 };
 
 #endif //MAINSCENE_H

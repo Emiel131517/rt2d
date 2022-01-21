@@ -165,6 +165,8 @@ IF(MAKE_JUMPY)
 		Jumpy/Background.h
 		Jumpy/GameEntity.h
 		Jumpy/Collider.h
+		Jumpy/GameData.h
+		Jumpy/GameData.cpp
 	)
 	target_link_libraries(Jumpy
 		${ALL_GRAPHICS_LIBS}

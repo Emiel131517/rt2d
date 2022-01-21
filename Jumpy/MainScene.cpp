@@ -9,11 +9,14 @@ MainScene::MainScene() : Scene() {
 	player = new Player();
 	scoreText = new Text();
 	jumpText = new Text();
+	highScoreText = new Text();
 	this->addChild(player);
 	this->addChild(scoreText);
 	this->addChild(jumpText);
-	timer.start();
+	this->addChild(highScoreText);
 
+	GameData::ReadData(player);
+	timer.start();
 	srand(time(NULL));
 
 	SpawnPlatform(SWIDTH / 2, SHEIGHT / 2);
@@ -35,7 +38,7 @@ void MainScene::update(float deltaTime)
 	//quit game
 	if (input()->getKey(KeyCode::Escape))
 	{
-		this->stop();
+		SaveAndQuit();
 	}
 }
 //creates a background
@@ -85,7 +88,7 @@ void MainScene::UseColliders()
 		}
 	}
 }
-//make the borders of the screen impassable
+//make the borders of the screen impassable except top border
 void MainScene::UseScreenBorders()
 {
 	if (player->position.x < 0 + player->width / 2)
@@ -98,31 +101,49 @@ void MainScene::UseScreenBorders()
 	}
 	if (player->position.y > SHEIGHT + player->height / 2)
 	{
-		this->stop();
+		SaveAndQuit();
 	}
 }
 //shows text
 void MainScene::UseText()
 {
 	//jump text
-	std::string jumpT = "Jumpcharge:";
-	jumpT += std::to_string(player->jumpCharge);
+	std::string jumpT = "Jump charge:";
+	jumpT += std::to_string((int)player->jumpCharge);
 	jumpT += std::string("%");
 	jumpText->message(jumpT);
 	jumpText->scale = Point2(0.45f, 0.45f);
 	jumpText->position = Point2(20, 75);
+
 	//score text
 	std::string scoreT = "Score: ";
 	scoreT += std::to_string(player->score);
 	scoreText->message(scoreT);
 	scoreText->position = Point2(25, 25);
+
+	//High score text
+	std::string highScoreT = "High score: ";
+	highScoreT += std::to_string(player->highScore);
+	highScoreText->message(highScoreT);
+	highScoreText->scale = Point2(0.45f, 0.45f);
+	highScoreText->position = Point2(20, 100);
+}
+void MainScene::SaveAndQuit()
+{
+	if (player->score >= player->highScore)
+	{
+		GameData::WriteData(player);
+	}
+	this->stop();
 }
 //destructor
 MainScene::~MainScene() {
 	this->removeChild(player);
 	this->removeChild(scoreText);
+	this->removeChild(highScoreText);
 	delete player;
 	delete scoreText;
+	delete highScoreText;
 	int sizePlatforms = platforms.size();
 	for (int i = 0; i < sizePlatforms; i++)
 	{

@@ -8,9 +8,9 @@ class Background : public Entity
 public:
 	Background();
 	virtual ~Background();
-	virtual void update(float deltaTime);
 
 private:
+	virtual void update(float deltaTime);
 	float speed;
 };
 

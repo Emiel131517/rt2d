@@ -11,21 +11,30 @@ Player::Player() : GameEntity()
 	jumpForce = minJumpForce;
 
 	isGrounded = false;
-	isJumping = false;
 
 	gravity = 1500;
 	velocityY = 0;
 
 	score = 0;
 
+	if (highScore <= 0)
+	{
+		highScore = score;
+	}
+
 	this->addSprite("Assets/Player.tga");
 }
 void Player::update(float deltaTime)
 {
 	jumpCharge = ((jumpForce - minJumpForce) / (maxJumpForce - minJumpForce)) * 100;
-	std::cout << jumpCharge << std::endl;
+
 	UseMovement(deltaTime);
 	UsePhysics(deltaTime);
+
+	if (score > highScore)
+	{
+		highScore = score;
+	}
 }
 void Player::UseMovement(float deltaTime)
 {
