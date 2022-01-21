@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "Platform.h"
 #include "timer.h"
-#include "text.h"
+#include "HudContainer.h"
 #include "Background.h"
 #include "GameData.h"
 
@@ -28,11 +28,9 @@ private:
 	void SaveAndQuit();
 
 	Player* player;
-	Text* scoreText;
-	Text* jumpText;
-	Text* highScoreText;
 	std::vector<Platform*> platforms;
 	std::vector<Background*> backgrounds;
+	HudContainer* hudContainer;
 	Timer timer;
 
 	int random;

@@ -5,15 +5,12 @@ MainScene::MainScene() : Scene() {
 
 	CreateBackground(0, 0);
 	CreateBackground(0, -SHEIGHT);
-
+	
+	hudContainer = new HudContainer();
 	player = new Player();
-	scoreText = new Text();
-	jumpText = new Text();
-	highScoreText = new Text();
+
 	this->addChild(player);
-	this->addChild(scoreText);
-	this->addChild(jumpText);
-	this->addChild(highScoreText);
+	this->addChild(hudContainer);
 
 	GameData::ReadData(player);
 	timer.start();
@@ -104,29 +101,28 @@ void MainScene::UseScreenBorders()
 		SaveAndQuit();
 	}
 }
-//shows text
 void MainScene::UseText()
 {
 	//jump text
 	std::string jumpT = "Jump charge:";
 	jumpT += std::to_string((int)player->jumpCharge);
 	jumpT += std::string("%");
-	jumpText->message(jumpT);
-	jumpText->scale = Point2(0.45f, 0.45f);
-	jumpText->position = Point2(20, 75);
+	hudContainer->jumpText->message(jumpT);
+	hudContainer->jumpText->scale = Point2(0.45f, 0.45f);
+	hudContainer->jumpText->position = Point2(20, 75);
 
 	//score text
 	std::string scoreT = "Score: ";
 	scoreT += std::to_string(player->score);
-	scoreText->message(scoreT);
-	scoreText->position = Point2(25, 25);
+	hudContainer->scoreText->message(scoreT);
+	hudContainer->scoreText->position = Point2(25, 25);
 
 	//High score text
 	std::string highScoreT = "High score: ";
 	highScoreT += std::to_string(player->highScore);
-	highScoreText->message(highScoreT);
-	highScoreText->scale = Point2(0.45f, 0.45f);
-	highScoreText->position = Point2(20, 100);
+	hudContainer->highScoreText->message(highScoreT);
+	hudContainer->highScoreText->scale = Point2(0.45f, 0.45f);
+	hudContainer->highScoreText->position = Point2(20, 100);
 }
 void MainScene::SaveAndQuit()
 {
@@ -139,11 +135,9 @@ void MainScene::SaveAndQuit()
 //destructor
 MainScene::~MainScene() {
 	this->removeChild(player);
-	this->removeChild(scoreText);
-	this->removeChild(highScoreText);
+	this->removeChild(hudContainer);
 	delete player;
-	delete scoreText;
-	delete highScoreText;
+	delete hudContainer;
 	int sizePlatforms = platforms.size();
 	for (int i = 0; i < sizePlatforms; i++)
 	{

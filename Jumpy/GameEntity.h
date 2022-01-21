@@ -7,7 +7,9 @@ class GameEntity : public Entity {
 public:
 	float width = 0;
 	float height = 0;
+
 private:
+
 };
 
 #endif // !GAMEENTITY_H
