@@ -9,12 +9,11 @@ Platform::Platform() : GameEntity()
 	speed = 90;
 	this->addSprite("Assets/Platform.tga");
 }
-
-Platform::~Platform()
-{
-
-}
 void Platform::update(float deltaTime)
 {
 	position.y += speed * deltaTime;
+}
+Platform::~Platform()
+{
+
 }

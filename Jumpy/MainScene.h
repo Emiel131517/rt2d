@@ -2,6 +2,7 @@
 #define MAINSCENE_H
 
 #include <rt2d/scene.h>
+#include "DeathBall.h"
 #include "Player.h"
 #include "Platform.h"
 #include "timer.h"
@@ -21,7 +22,9 @@ private:
 	void update(float deltaTime);
 	void CreateBackground(int Xposition, int Yposition);
 	void SpawnPlatform(int Xposition, int Yposition);
-	void UseRandomPlatformSpawn();
+	void SpawnPlatformRandomLoc();
+	void SpawnDeathball(int Xposition, int Yposition);
+	void SpawnDeathballRandomLoc();
 	void UseColliders();
 	void UseScreenBorders();
 	void UseText();
@@ -30,8 +33,10 @@ private:
 	Player* player;
 	std::vector<Platform*> platforms;
 	std::vector<Background*> backgrounds;
+	std::vector<DeathBall*> deathBalls;
 	HudContainer* hudContainer;
-	Timer timer;
+	Timer platformTimer;
+	Timer deathballTimer;
 
 	int random;
 };

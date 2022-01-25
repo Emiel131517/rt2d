@@ -5,27 +5,28 @@ MainScene::MainScene() : Scene() {
 
 	CreateBackground(0, 0);
 	CreateBackground(0, -SHEIGHT);
-	
-	hudContainer = new HudContainer();
+
 	player = new Player();
+	hudContainer = new HudContainer();
 
 	this->addChild(player);
 	this->addChild(hudContainer);
 
 	GameData::ReadData(player);
-	timer.start();
+	platformTimer.start();
+	deathballTimer.start();
 	srand(time(NULL));
 
 	SpawnPlatform(SWIDTH / 2, SHEIGHT / 2);
 	SpawnPlatform(SWIDTH / 3, SHEIGHT / 4);
 	SpawnPlatform(SWIDTH / 2, SHEIGHT / 100);
-
-	player->position = Point2(SWIDTH / 2, SHEIGHT / 2 - player->height);
 }
 void MainScene::update(float deltaTime) 
 {	
 	//##SpawnPlatforms##//
-	UseRandomPlatformSpawn();
+	SpawnPlatformRandomLoc();
+	//##SpawnDeathballs##//
+	SpawnDeathballRandomLoc();
 	//##Colliding##//
 	UseColliders();
 	//##Text##//
@@ -55,23 +56,43 @@ void MainScene::SpawnPlatform(int Xposition, int Yposition)
 	this->addChild(platform);
 }
 //spawns a platform at a random location between the screen borders
-void MainScene::UseRandomPlatformSpawn()
+void MainScene::SpawnPlatformRandomLoc()
 {
 	int max = SWIDTH - 128;
 	int min = 0 + 128;
 	random = rand() % (max - min) + min;
-	if (timer.seconds() >= 2)
+	if (platformTimer.seconds() >= 2)
 	{
 		SpawnPlatform(random, 0);
-		timer.start();
+		platformTimer.start();
+	}
+}
+//spawns a deathball
+void MainScene::SpawnDeathball(int Xposition, int Yposition)
+{
+	DeathBall* deathBall = new DeathBall();
+	deathBall->position = Point2(Xposition, Yposition);
+	deathBalls.push_back(deathBall);
+	this->addChild(deathBall);
+}
+//spawns a deathball at a random location between the screen borders
+void MainScene::SpawnDeathballRandomLoc()
+{
+	int max = SWIDTH - 128;
+	int min = 0 + 128;
+	random = rand() % (max - min) + min;
+	if (deathballTimer.seconds() >= 2.5f)
+	{
+		SpawnDeathball(random, -64);
+		deathballTimer.start();
 	}
 }
 //checks collision
 void MainScene::UseColliders()
 {
 	player->isGrounded = false;
-	int size = platforms.size();
-	for (int i = 0; i < size; i++)
+	int sizePlatform = platforms.size();
+	for (int i = 0; i < sizePlatform; i++)
 	{
 		if (Collider::SquareIsColliding(platforms[i], player) && player->velocityY > 0 && player->position.y < platforms[i]->position.y - player->height / 2)
 		{
@@ -82,6 +103,14 @@ void MainScene::UseColliders()
 				player->score++;
 				platforms[i]->giveScore = true;
 			}
+		}
+	}
+	int sizeDeathball = deathBalls.size();
+	for (int i = 0; i < sizeDeathball; i++)
+	{
+		if (Collider::SquareIsColliding(deathBalls[i], player))
+		{
+			SaveAndQuit();
 		}
 	}
 }
@@ -103,6 +132,7 @@ void MainScene::UseScreenBorders()
 }
 void MainScene::UseText()
 {
+	this->removeChild(hudContainer);
 	//jump text
 	std::string jumpT = "Jump charge:";
 	jumpT += std::to_string((int)player->jumpCharge);
@@ -123,6 +153,8 @@ void MainScene::UseText()
 	hudContainer->highScoreText->message(highScoreT);
 	hudContainer->highScoreText->scale = Point2(0.45f, 0.45f);
 	hudContainer->highScoreText->position = Point2(20, 100);
+
+	this->addChild(hudContainer);
 }
 void MainScene::SaveAndQuit()
 {
@@ -149,5 +181,11 @@ MainScene::~MainScene() {
 	{
 		this->removeChild(backgrounds[i]);
 		delete backgrounds[i];
+	}
+	int sizeDeathballs = deathBalls.size();
+	for (int i = 0; i < sizeDeathballs; i++)
+	{
+		this->removeChild(deathBalls[i]);
+		delete deathBalls[i];
 	}
 }

@@ -5,7 +5,6 @@
 
 class Player : public GameEntity {
 public:
-
 	bool isGrounded;
 
 	float moveSpeed;

@@ -23,6 +23,7 @@ Player::Player() : GameEntity()
 	}
 
 	this->addSprite("Assets/Player.tga");
+	this->position = Point2(SWIDTH / 2, SHEIGHT / 2 - height);
 }
 void Player::update(float deltaTime)
 {
