@@ -9,6 +9,7 @@
 #include "HudContainer.h"
 #include "Background.h"
 #include "GameData.h"
+#include "LayerEntity.h"
 
 class MainScene : public Scene
 {
@@ -34,6 +35,7 @@ private:
 	std::vector<Platform*> platforms;
 	std::vector<Background*> backgrounds;
 	std::vector<DeathBall*> deathBalls;
+	std::vector<LayerEntity*> layers;
 	HudContainer* hudContainer;
 	Timer platformTimer;
 	Timer deathballTimer;

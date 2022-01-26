@@ -3,14 +3,21 @@
 
 MainScene::MainScene() : Scene() {
 
+	for (int i = 0; i < 5; i++)
+	{
+		LayerEntity* layer = new LayerEntity();
+		layers.push_back(layer);
+		this->addChild(layer);
+	}
+
 	CreateBackground(0, 0);
 	CreateBackground(0, -SHEIGHT);
 
 	player = new Player();
 	hudContainer = new HudContainer();
 
-	this->addChild(player);
-	this->addChild(hudContainer);
+	layers[1]->addChild(player);
+	layers[4]->addChild(hudContainer);
 
 	GameData::ReadData(player);
 	platformTimer.start();
@@ -45,7 +52,7 @@ void MainScene::CreateBackground(int Xposition, int Yposition)
 	Background* background = new Background();
 	background->position = Point2(Xposition, Yposition);
 	backgrounds.push_back(background);
-	this->addChild(background);
+	layers[0]->addChild(background);
 }
 //spawns a platform
 void MainScene::SpawnPlatform(int Xposition, int Yposition)
@@ -53,7 +60,7 @@ void MainScene::SpawnPlatform(int Xposition, int Yposition)
 	Platform* platform = new Platform();
 	platform->position = Point2(Xposition, Yposition);
 	platforms.push_back(platform);
-	this->addChild(platform);
+	layers[2]->addChild(platform);
 }
 //spawns a platform at a random location between the screen borders
 void MainScene::SpawnPlatformRandomLoc()
@@ -73,7 +80,7 @@ void MainScene::SpawnDeathball(int Xposition, int Yposition)
 	DeathBall* deathBall = new DeathBall();
 	deathBall->position = Point2(Xposition, Yposition);
 	deathBalls.push_back(deathBall);
-	this->addChild(deathBall);
+	layers[3]->addChild(deathBall);
 }
 //spawns a deathball at a random location between the screen borders
 void MainScene::SpawnDeathballRandomLoc()
@@ -132,7 +139,6 @@ void MainScene::UseScreenBorders()
 }
 void MainScene::UseText()
 {
-	this->removeChild(hudContainer);
 	//jump text
 	std::string jumpT = "Jump charge:";
 	jumpT += std::to_string((int)player->jumpCharge);
@@ -153,8 +159,6 @@ void MainScene::UseText()
 	hudContainer->highScoreText->message(highScoreT);
 	hudContainer->highScoreText->scale = Point2(0.45f, 0.45f);
 	hudContainer->highScoreText->position = Point2(20, 100);
-
-	this->addChild(hudContainer);
 }
 void MainScene::SaveAndQuit()
 {
@@ -187,5 +191,11 @@ MainScene::~MainScene() {
 	{
 		this->removeChild(deathBalls[i]);
 		delete deathBalls[i];
+	}
+	int sizeLayers = layers.size();
+	for (int i = 0; i < sizeLayers; i++)
+	{
+		this->removeChild(layers[i]);
+		delete layers[i];
 	}
 }
