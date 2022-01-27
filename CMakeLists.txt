@@ -173,6 +173,10 @@ IF(MAKE_JUMPY)
 		Jumpy/DeathBall.cpp
 		Jumpy/LayerEntity.h
 		Jumpy/LayerEntity.cpp
+		Jumpy/JumpBarBorder.h
+		Jumpy/JumpBarBorder.cpp
+		Jumpy/JumpBarFill.h
+		Jumpy/JumpBarFill.cpp
 	)
 	target_link_libraries(Jumpy
 		${ALL_GRAPHICS_LIBS}

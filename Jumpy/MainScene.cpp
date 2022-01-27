@@ -46,7 +46,9 @@ void MainScene::update(float deltaTime)
 		SaveAndQuit();
 	}
 }
+//########################################
 //creates a background
+//########################################
 void MainScene::CreateBackground(int Xposition, int Yposition)
 {
 	Background* background = new Background();
@@ -54,7 +56,9 @@ void MainScene::CreateBackground(int Xposition, int Yposition)
 	backgrounds.push_back(background);
 	layers[0]->addChild(background);
 }
-//spawns a platform
+//########################################
+//spawns one platform
+//########################################
 void MainScene::SpawnPlatform(int Xposition, int Yposition)
 {
 	Platform* platform = new Platform();
@@ -62,7 +66,9 @@ void MainScene::SpawnPlatform(int Xposition, int Yposition)
 	platforms.push_back(platform);
 	layers[2]->addChild(platform);
 }
-//spawns a platform at a random location between the screen borders
+//########################################
+//spawns one platform at a random x pos
+//########################################
 void MainScene::SpawnPlatformRandomLoc()
 {
 	int max = SWIDTH - 128;
@@ -74,7 +80,9 @@ void MainScene::SpawnPlatformRandomLoc()
 		platformTimer.start();
 	}
 }
-//spawns a deathball
+//########################################
+//spawns one deathball
+//########################################
 void MainScene::SpawnDeathball(int Xposition, int Yposition)
 {
 	DeathBall* deathBall = new DeathBall();
@@ -82,7 +90,9 @@ void MainScene::SpawnDeathball(int Xposition, int Yposition)
 	deathBalls.push_back(deathBall);
 	layers[3]->addChild(deathBall);
 }
-//spawns a deathball at a random location between the screen borders
+//########################################
+//spawns one deathball at a random x pos
+//########################################
 void MainScene::SpawnDeathballRandomLoc()
 {
 	int max = SWIDTH - 128;
@@ -94,7 +104,9 @@ void MainScene::SpawnDeathballRandomLoc()
 		deathballTimer.start();
 	}
 }
-//checks collision
+//########################################
+//checks if entities are colliding
+//########################################
 void MainScene::UseColliders()
 {
 	player->isGrounded = false;
