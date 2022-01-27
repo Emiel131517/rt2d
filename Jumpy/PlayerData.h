@@ -6,11 +6,11 @@
 #include <iostream>
 #include <string>
 
-class GameData {
+class PlayerData {
 public:
 
-	GameData();
-	virtual ~GameData();
+	PlayerData();
+	virtual ~PlayerData();
 	static void WriteData(Player* player);
 	static void ReadData(Player* player);
 

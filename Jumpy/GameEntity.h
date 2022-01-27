@@ -5,8 +5,13 @@
 
 class GameEntity : public Entity {
 public:
-	float width = 0;
-	float height = 0;
+
+	GameEntity();
+	void update(float deltaTime);
+	~GameEntity();
+
+	float width;
+	float height;
 
 private:
 

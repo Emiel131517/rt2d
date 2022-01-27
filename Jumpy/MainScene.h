@@ -8,7 +8,7 @@
 #include "timer.h"
 #include "HudContainer.h"
 #include "Background.h"
-#include "GameData.h"
+#include "PlayerData.h"
 #include "LayerEntity.h"
 
 class MainScene : public Scene

@@ -4,16 +4,11 @@ HudContainer::HudContainer() : Entity()
 {
 	scoreText = new Text();
 	highScoreText = new Text();
-	jumpBarFill = new JumpBarFill();
-	jumpBarBorder = new JumpBarBorder();
+	jumpBar = new JumpBar();
 
 	this->addChild(scoreText);
 	this->addChild(highScoreText);
-	this->addChild(jumpBarFill);
-	this->addChild(jumpBarBorder);
-
-	jumpBarFill->position = Point2(SWIDTH / 2 - 512 / 2, SHEIGHT - jumpBarFill->height);
-	jumpBarBorder->position = Point2(SWIDTH / 2, SHEIGHT - jumpBarBorder->height / 2);
+	this->addChild(jumpBar);
 }
 void HudContainer::update(float deltaTime)
 {
@@ -23,6 +18,5 @@ HudContainer::~HudContainer()
 {
 	delete scoreText;
 	delete highScoreText;
-	delete jumpBarBorder;
-	delete jumpBarFill;
+	delete jumpBar;
 }

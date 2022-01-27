@@ -164,19 +164,18 @@ IF(MAKE_JUMPY)
 		Jumpy/Background.cpp
 		Jumpy/Background.h
 		Jumpy/GameEntity.h
+		Jumpy/GameEntity.cpp
 		Jumpy/Collider.h
-		Jumpy/GameData.h
-		Jumpy/GameData.cpp
+		Jumpy/PlayerData.h
+		Jumpy/PlayerData.cpp
 		Jumpy/HudContainer.h
 		Jumpy/HudContainer.cpp
 		Jumpy/DeathBall.h
 		Jumpy/DeathBall.cpp
 		Jumpy/LayerEntity.h
 		Jumpy/LayerEntity.cpp
-		Jumpy/JumpBarBorder.h
-		Jumpy/JumpBarBorder.cpp
-		Jumpy/JumpBarFill.h
-		Jumpy/JumpBarFill.cpp
+		Jumpy/JumpBar.h
+		Jumpy/JumpBar.cpp
 	)
 	target_link_libraries(Jumpy
 		${ALL_GRAPHICS_LIBS}

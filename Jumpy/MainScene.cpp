@@ -19,7 +19,7 @@ MainScene::MainScene() : Scene() {
 	layers[1]->addChild(player);
 	layers[4]->addChild(hudContainer);
 
-	GameData::ReadData(player);
+	PlayerData::ReadData(player);
 	platformTimer.start();
 	deathballTimer.start();
 	srand(time(NULL));
@@ -40,7 +40,7 @@ void MainScene::update(float deltaTime)
 	UseScreenBorders();
 	//##Movement##//
 	UseText();
-	hudContainer->jumpBarFill->widthScale = player->jumpCharge; 
+	hudContainer->jumpBar->fillWidthScale = player->jumpCharge;
 	//quit game
 	if (input()->getKey(KeyCode::Escape))
 	{
@@ -169,7 +169,7 @@ void MainScene::SaveAndQuit()
 {
 	if (player->score >= player->highScore)
 	{
-		GameData::WriteData(player);
+		PlayerData::WriteData(player);
 	}
 	this->stop();
 }

@@ -3,8 +3,7 @@
 
 #include <rt2d/entity.h>
 #include "text.h"
-#include "JumpBarBorder.h"
-#include "JumpBarFill.h"
+#include "JumpBar.h"
 
 class HudContainer : public Entity {
 public:
@@ -14,10 +13,7 @@ public:
 	
 	Text* scoreText;
 	Text* highScoreText;
-
-	JumpBarBorder* jumpBarBorder;
-	JumpBarFill* jumpBarFill;
-
+	JumpBar* jumpBar;
 private:
 
 };

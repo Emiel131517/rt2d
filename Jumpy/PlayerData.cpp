@@ -1,17 +1,17 @@
-#include "GameData.h"
+#include "PlayerData.h"
 
-GameData::GameData()
+PlayerData::PlayerData()
 {
 
 }
-void GameData::WriteData(Player* player)
+void PlayerData::WriteData(Player* player)
 {
     FILE* data;
     data = fopen("Data.save", "w");
     putc(player->highScore, data);
     fclose(data);
 }
-void GameData::ReadData(Player* player)
+void PlayerData::ReadData(Player* player)
 {
     FILE* data;
     if (data = fopen("Data.save", "r"))
@@ -21,14 +21,7 @@ void GameData::ReadData(Player* player)
         fclose(data);
     }
 }
-//std::ofstream data;
-//data.open("Data.txt");
-//if (data.is_open())
-//{
-//    data << player->highScore;
-//    data.close();
-//}
-GameData::~GameData()
+PlayerData::~PlayerData()
 {
 
 }
