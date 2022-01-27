@@ -40,6 +40,7 @@ void MainScene::update(float deltaTime)
 	UseScreenBorders();
 	//##Movement##//
 	UseText();
+	hudContainer->jumpBarFill->widthScale = player->jumpCharge; 
 	//quit game
 	if (input()->getKey(KeyCode::Escape))
 	{
@@ -151,14 +152,6 @@ void MainScene::UseScreenBorders()
 }
 void MainScene::UseText()
 {
-	//jump text
-	std::string jumpT = "Jump charge:";
-	jumpT += std::to_string((int)player->jumpCharge);
-	jumpT += std::string("%");
-	hudContainer->jumpText->message(jumpT);
-	hudContainer->jumpText->scale = Point2(0.45f, 0.45f);
-	hudContainer->jumpText->position = Point2(20, 75);
-
 	//score text
 	std::string scoreT = "Score: ";
 	scoreT += std::to_string(player->score);
@@ -170,7 +163,7 @@ void MainScene::UseText()
 	highScoreT += std::to_string(player->highScore);
 	hudContainer->highScoreText->message(highScoreT);
 	hudContainer->highScoreText->scale = Point2(0.45f, 0.45f);
-	hudContainer->highScoreText->position = Point2(20, 100);
+	hudContainer->highScoreText->position = Point2(20, 75);
 }
 void MainScene::SaveAndQuit()
 {

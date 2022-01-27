@@ -27,7 +27,7 @@ Player::Player() : GameEntity()
 }
 void Player::update(float deltaTime)
 {
-	jumpCharge = ((jumpForce - minJumpForce) / (maxJumpForce - minJumpForce)) * 100;
+	jumpCharge = ((jumpForce - minJumpForce) / (maxJumpForce - minJumpForce)) * 1;
 
 	UseMovement(deltaTime);
 	UsePhysics(deltaTime);

@@ -13,7 +13,6 @@ public:
 	virtual ~HudContainer();
 	
 	Text* scoreText;
-	Text* jumpText;
 	Text* highScoreText;
 
 	JumpBarBorder* jumpBarBorder;
