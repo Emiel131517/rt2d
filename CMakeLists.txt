@@ -6,6 +6,7 @@ project (rt2d)
 ####################################################################
 OPTION(MAKE_START "Make RT2D start application" ON)
 OPTION(MAKE_JUMPY "Make Jumpy game application" ON)
+OPTION(MAKE_IMLEIDLE "Make Jumpy game application" ON)
 OPTION(MAKE_DEMO "Make RT2D demo (tests) application" ON)
 OPTION(MAKE_CANVAS_DEMO "Make RT2D Canvas demo (tests) application" ON)
 OPTION(MAKE_FLOCKING "Make flocking application" ON)
@@ -148,6 +149,38 @@ file(
 	COPY ${CMAKE_SOURCE_DIR}/rt2d/fonts
 	DESTINATION ${CMAKE_BINARY_DIR}
 )
+####################################################################
+# ImleIdle                                                         #
+####################################################################
+IF(MAKE_IMLEIDLE)
+	add_executable(ImleIdle
+		ImleIdle/main.cpp
+		ImleIdle/Player.cpp
+		ImleIdle/Player.h
+		ImleIdle/GameScene.cpp
+		ImleIdle/GameScene.h
+		ImleIdle/Material.cpp
+		ImleIdle/Material.h
+		ImleIdle/Ore.cpp
+		ImleIdle/Ore.h
+		ImleIdle/Smelter.cpp
+		ImleIdle/Smelter.h
+		ImleIdle/GameEntity.cpp
+		ImleIdle/GameEntity.h
+		ImleIdle/LayerEntity.cpp
+		ImleIdle/LayerEntity.h
+		ImleIdle/IronIngot.cpp
+		ImleIdle/IronIngot.h
+	)
+	target_link_libraries(ImleIdle
+		${ALL_GRAPHICS_LIBS}
+	)
+	# Copy assets to the build directory
+	file(
+		COPY ImleIdle/assets
+		DESTINATION ${CMAKE_BINARY_DIR}
+	)
+ENDIF()
 
 ####################################################################
 # Jumpy                                                            #

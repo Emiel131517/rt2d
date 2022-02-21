@@ -17,7 +17,6 @@ void PlayerData::ReadData(Player* player)
     if (data = fopen("Data.save", "r"))
     {
         player->highScore = getc(data);
-        std::cout << player->highScore << std::endl;
         fclose(data);
     }
 }
