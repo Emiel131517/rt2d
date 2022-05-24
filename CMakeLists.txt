@@ -150,39 +150,6 @@ file(
 	DESTINATION ${CMAKE_BINARY_DIR}
 )
 ####################################################################
-# ImleIdle                                                         #
-####################################################################
-IF(MAKE_IMLEIDLE)
-	add_executable(ImleIdle
-		ImleIdle/main.cpp
-		ImleIdle/Player.cpp
-		ImleIdle/Player.h
-		ImleIdle/GameScene.cpp
-		ImleIdle/GameScene.h
-		ImleIdle/Material.cpp
-		ImleIdle/Material.h
-		ImleIdle/Ore.cpp
-		ImleIdle/Ore.h
-		ImleIdle/Smelter.cpp
-		ImleIdle/Smelter.h
-		ImleIdle/GameEntity.cpp
-		ImleIdle/GameEntity.h
-		ImleIdle/LayerEntity.cpp
-		ImleIdle/LayerEntity.h
-		ImleIdle/IronIngot.cpp
-		ImleIdle/IronIngot.h
-	)
-	target_link_libraries(ImleIdle
-		${ALL_GRAPHICS_LIBS}
-	)
-	# Copy assets to the build directory
-	file(
-		COPY ImleIdle/assets
-		DESTINATION ${CMAKE_BINARY_DIR}
-	)
-ENDIF()
-
-####################################################################
 # Jumpy                                                            #
 ####################################################################
 IF(MAKE_JUMPY)
