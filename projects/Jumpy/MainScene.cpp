@@ -173,6 +173,10 @@ void MainScene::SaveAndQuit()
 	}
 	this->stop();
 }
+void MainScene::Restart() 
+{
+	
+}
 //destructor
 MainScene::~MainScene() {
 	this->removeChild(player);

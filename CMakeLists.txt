@@ -5,6 +5,7 @@ project (rt2d)
 # delete CMakeCache.txt from the build directory when you edit these options
 ####################################################################
 OPTION(MAKE_JUMPY "Make Jumpy game application" ON)
+OPTION(MAKE_FACTORY "Make Factory game application" ON)
 
 OPTION(USE_RS232 "Use RS232 library" OFF)
 OPTION(MAKE_SERIAL "Make serial application" OFF)
@@ -135,6 +136,24 @@ file(
 	COPY ${CMAKE_SOURCE_DIR}/rt2d/fonts
 	DESTINATION ${CMAKE_BINARY_DIR}
 )
+####################################################################
+# Factory                                                          #
+####################################################################
+IF(MAKE_FACTORY)
+	add_executable(Factory
+		projects/Factory/Main.cpp
+
+	)
+	target_link_libraries(Factory
+		${ALL_GRAPHICS_LIBS}
+	)
+	# Copy assets to the build directory
+	file(
+		COPY projects/Factory/assets
+		DESTINATION ${CMAKE_BINARY_DIR}
+	)
+ENDIF()
+
 ####################################################################
 # Jumpy                                                            #
 ####################################################################

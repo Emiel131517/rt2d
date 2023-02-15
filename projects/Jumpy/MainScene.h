@@ -30,6 +30,7 @@ private:
 	void UseScreenBorders();
 	void UseText();
 	void SaveAndQuit();
+	void Restart();
 
 	Player* player;
 	std::vector<Platform*> platforms;
